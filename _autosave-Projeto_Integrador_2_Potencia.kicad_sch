@@ -5273,7 +5273,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d364ac88-e46e-4c1b-b43b-19514f47cfc4")
-		(property "Reference" "ESP32_Socket_L"
+		(property "Reference" "ESP32_Socket_L1"
 			(at 128.524 92.964 0)
 			(effects
 				(font
@@ -5366,7 +5366,7 @@
 		(instances
 			(project ""
 				(path "/7080dea1-265b-4d20-a61a-e2885e90866f"
-					(reference "ESP32_Socket_L")
+					(reference "ESP32_Socket_L1")
 					(unit 1)
 				)
 			)
@@ -5448,7 +5448,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "dff4a2d8-0af1-4bbb-a06f-13f8680c258a")
-		(property "Reference" "ESP32_Socket_R"
+		(property "Reference" "ESP32_Socket_R1"
 			(at 159.258 92.456 0)
 			(effects
 				(font
@@ -5539,7 +5539,7 @@
 		(instances
 			(project "Projeto_Integrador_2_Potencia"
 				(path "/7080dea1-265b-4d20-a61a-e2885e90866f"
-					(reference "ESP32_Socket_R")
+					(reference "ESP32_Socket_R1")
 					(unit 1)
 				)
 			)
