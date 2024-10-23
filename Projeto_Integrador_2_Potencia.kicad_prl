@@ -1,7 +1,7 @@
 {
   "board": {
     "active_layer": 0,
-    "active_layer_preset": "All Layers",
+    "active_layer_preset": "",
     "auto_track_width": true,
     "hidden_netclasses": [
       "Default"
@@ -19,7 +19,7 @@
       "INA_Vin+",
       "unconnected-(J5-Pin_5-Pad5)",
       "unconnected-(J5-Pin_6-Pad6)",
-      "12V",
+      "8V",
       "5.2V_feedback",
       "Net-(R2-Pad2)",
       "unconnected-(U1-VP-Pad17)",
@@ -106,7 +106,7 @@
       39,
       40
     ],
-    "visible_layers": "fffffff_ffffffff",
+    "visible_layers": "0001000_7fffffff",
     "zone_display_mode": 0
   },
   "git": {
