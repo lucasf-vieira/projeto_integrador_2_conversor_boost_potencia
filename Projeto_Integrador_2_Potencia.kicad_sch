@@ -5004,7 +5004,7 @@
 				)
 			)
 		)
-		(property "Value" "~"
+		(property "Value" "Diodo Schottky"
 			(at 81.5975 39.37 0)
 			(effects
 				(font
