@@ -1,46 +1,35 @@
 #include "WiFiMQTTHandler.h"
 
-void setup_wifi(const char* ssid, const char* password){
-  delay(10);
-  Serial.println("\nConnecting to " + String(ssid));
-
-  WiFi.mode(WIFI_STA);
+void setup_wifi(const char* ssid, const char* password) {
+  Serial.print("Connecting to Wi-Fi");
   WiFi.begin(ssid, password);
-
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
-  Serial.println("\nWiFi connected! IP address: ");
+  Serial.println("\nWi-Fi connected.");
+  Serial.print("IP Address: ");
   Serial.println(WiFi.localIP());
 }
 
+void mqtt_init(PubSubClient& client, const char* mqtt_server) {
+  client.setServer(mqtt_server, 1883);
 
-
-void reconnect(PubSubClient client) {
   while (!client.connected()) {
-    Serial.print("Attempting MQTT connection...");
-    String clientId = "ESP32Client-";
-    clientId += String(random(0xffff), HEX); 
-
-    if (client.connect(clientId.c_str())) {
-      Serial.println("connected");
+    Serial.print("Connecting to MQTT broker...");
+    if (client.connect("ESP32Client")) {
+      Serial.println("connected.");
     } else {
       Serial.print("failed, rc=");
-      Serial.print(client.state());
-      Serial.println(" try again in 5 seconds");
-      delay(5000); 
+      Serial.println(client.state());
+      delay(5000);
     }
   }
 }
 
-void mqtt_init(PubSubClient client, const char* ip){
-  client.setServer(ip, 1883);
-}
-
-void handle_mqtt(PubSubClient client){
+void handle_mqtt(PubSubClient& client) {
   if (!client.connected()) {
-    reconnect(client);
+    mqtt_init(client, "192.168.138.158"); // Use o IP do broker MQTT
   }
   client.loop();
 }
