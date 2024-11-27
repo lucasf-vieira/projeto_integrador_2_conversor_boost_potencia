@@ -11,11 +11,12 @@
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 #define MOCK true
+#define DISPLAY false
 
 // Configurações de rede e broker
 const char* ssid = "Vini";
 const char* password = "senha123";
-const char* mqtt_server = "192.168.138.158";
+const char* mqtt_server = "192.168.235.158";
 
 // Objetos WiFi e MQTT
 WiFiClient espClient;
@@ -26,7 +27,6 @@ Adafruit_INA219 ina219;
 
 // Atualiza o display com os valores
 void update_display(float voltage, float current) {
-  #if !MOCK
   // Limpa o display
   display.clearDisplay();
 
@@ -46,7 +46,6 @@ void update_display(float voltage, float current) {
 
   // Atualiza o display
   display.display();
-  #endif
 }
 
 // Publica os valores do INA219
@@ -65,15 +64,17 @@ void publish_sensor_data() {
   Serial.println("Voltage: " + voltage_str + " V");
   Serial.println("Current: " + current_str + " mA");
 
+  #if DISPLAY
   // Atualiza o display (somente se MOCK estiver desativado)
   update_display(bus_voltage, current_mA);
+  #endif
 }
 
 // Publica dados mock
 void publish_mock_data() {
   // Gera valores de mock
-  float mock_voltage = random(0, 50) / 10.0; // Voltagem entre 0.0V e 5.0V
-  float mock_current = random(0, 2000) / 10.0; // Corrente entre 0.0mA e 200.0mA
+  float mock_voltage = random(460, 500) / 10.0; // Voltagem entre 0.0V e 5.0V
+  float mock_current = random(15000, 30000) / 10.0; // Corrente entre 0.0mA e 200.0mA
 
   // Publica no tópico mock
   String voltage_str = String(mock_voltage, 2);
@@ -84,13 +85,18 @@ void publish_mock_data() {
 
   Serial.println("Mock Voltage: " + voltage_str + " V");
   Serial.println("Mock Current: " + current_str + " mA");
+  
+  #if DISPLAY
+  // Atualiza o display (somente se MOCK estiver desativado)
+  update_display(mock_voltage, mock_current);
+  #endif
 }
 
 void setup() {
   Serial.begin(9600);
 
-  // Inicializa o display (somente se MOCK estiver desativado)
-  #if !MOCK
+  // Inicializa o display
+  #if DISPLAY
   if (!display.begin(SSD1306_I2C_ADDRESS, 0x3C)) {
     Serial.println("SSD1306 allocation failed");
     while (true);
@@ -128,5 +134,5 @@ void loop() {
     publish_sensor_data();
   #endif
 
-  delay(1000); // Publica a cada 1 segundo
+  delay(300); // Publica a cada 1 segundo
 }
